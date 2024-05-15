@@ -16,7 +16,7 @@ namespace Task_Manager___Andrii_Lukashchuk
         public int habitDurationTracker { get; set; }
 
         // Constructor
-        public Habit(int habitDurationTracker, RepetitionSchedule repetitionSchedule, string taskDescription, string taskNotes, bool taskCompleted, DateTime taskDue) : base(repetitionSchedule, taskDescription, taskNotes, taskCompleted, taskDue)
+        public Habit(int habitDurationTracker, RepetitionSchedule repetitionSchedule, string taskDescription, string taskNotes, bool taskCompleted, DateTime taskDue, Guid? folderGuid) : base(repetitionSchedule, taskDescription, taskNotes, taskCompleted, taskDue, folderGuid)
         {
             this.habitDurationTracker = habitDurationTracker;
         }

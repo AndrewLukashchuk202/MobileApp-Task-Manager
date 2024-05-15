@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,12 +16,12 @@ namespace Task_Manager___Andrii_Lukashchuk
         public string folderName { get; set; }
         public List<Guid> listOfTasksGuids { get; }
 
+        public string folderTaskAmount { get; set; }
+
         public static int folderCounter = 0;
 
         // List to store folders
         public static List<Folder> listOfFolders = new List<Folder>();
-
-        DataModelV2 sqlModel = new DataModelV2();
 
         public Folder(string folderName)
         {
@@ -32,7 +33,27 @@ namespace Task_Manager___Andrii_Lukashchuk
             listOfFolders.Add(this);
             folderCounter++;
 
-            sqlModel.AddFolder(this);
+            DataModelV2.AddFolder(this);
+        }
+
+        //Constructor for passing values from sql database just for the cases where we already know a folder's GUID so we do not create a new one
+        public Folder(Guid folderGuid, string folderName, int folderTaskAmount)
+        {
+            this.folderGuid = folderGuid;
+            this.folderName = folderName;
+            if (folderTaskAmount > 0)
+            {
+                this.folderTaskAmount = folderTaskAmount.ToString();
+            }
+            else
+            {
+                this.folderTaskAmount = "";
+            }
+
+            // Adding the folder to the list of folders upon creation
+            listOfFolders.Add(this);
+            folderCounter++;
+            DataModelV2.AddFolder(this);
         }
 
         // Method to add a task to the folder
@@ -52,7 +73,7 @@ namespace Task_Manager___Andrii_Lukashchuk
         {
             listOfFolders.Add(folder);
 
-            sqlModel.AddFolder(this);
+            DataModelV2.AddFolder(this);
         }
 
         // Method to remove a folder
@@ -60,7 +81,7 @@ namespace Task_Manager___Andrii_Lukashchuk
         {
             listOfFolders.Remove(folder);
 
-            sqlModel.DeleteFolder(this);
+            DataModelV2.DeleteFolder(this);
         }
 
         // Property to get the count of incomplete tasks in the folder
@@ -70,17 +91,21 @@ namespace Task_Manager___Andrii_Lukashchuk
             {
                 int incompleteCount = 0;
 
-                foreach (var taskId in listOfTasksGuids)
+                if (listOfTasksGuids != null)
                 {
-                    foreach (Task task in Task.listOfTasks)
+                    foreach (var taskId in listOfTasksGuids)
                     {
-                        if (task.taskGuid == taskId && task.taskCompleted == false)
+                        foreach (Task task in Task.listOfTasks)
                         {
-                            incompleteCount++;
+                            if (task.taskGuid == taskId && task.taskCompleted == false)
+                            {
+                                incompleteCount++;
+                            }
                         }
                     }
+                    return incompleteCount;
                 }
-                return incompleteCount;
+                return incompleteCount; ;
             }
         }
     }

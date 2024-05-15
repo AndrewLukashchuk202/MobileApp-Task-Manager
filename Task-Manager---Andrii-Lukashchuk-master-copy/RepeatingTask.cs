@@ -25,13 +25,13 @@ namespace Task_Manager___Andrii_Lukashchuk
         public RepetitionSchedule repetitionSchedule;
 
         // Constructors
-        public RepeatingTask(RepetitionSchedule repetitionSchedule, string taskDescription, string taskNotes, bool taskCompleted, DateTime taskDue) : base(taskDescription, taskNotes, taskCompleted, taskDue)
+        public RepeatingTask(RepetitionSchedule repetitionSchedule, string taskDescription, string taskNotes, bool taskCompleted, DateTime taskDue, Guid? folderGuid) : base(taskDescription, taskNotes, taskCompleted, taskDue, folderGuid)
         {
             this.repetitionSchedule = repetitionSchedule;
 
         }
 
-        public RepeatingTask(RepetitionSchedule repetitionSchedule) : base("", "", false, DateTime.Now)
+        public RepeatingTask(RepetitionSchedule repetitionSchedule) : base("", "", false, DateTime.Now, null)
         {
             this.repetitionSchedule = repetitionSchedule;
         }

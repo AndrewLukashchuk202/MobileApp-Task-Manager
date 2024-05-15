@@ -116,22 +116,38 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AddFolderPage.xaml.cs">
+      <DependentUpon>AddFolderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AddTaskPage.xaml.cs">
+      <DependentUpon>AddTaskPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AppSettings.cs" />
+    <Compile Include="ChosenFolderPage.xaml.cs">
+      <DependentUpon>ChosenFolderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ChosenTaskPage.xaml.cs">
+      <DependentUpon>ChosenTaskPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataHandler.cs" />
     <Compile Include="DataModelV2.cs" />
     <Compile Include="Folder.cs" />
-    <Compile Include="FolderPage.xaml.cs">
-      <DependentUpon>FolderPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Habit.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RepeatingTask.cs" />
+    <Compile Include="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Task.cs" />
+    <Compile Include="TasksPage.xaml.cs">
+      <DependentUpon>TasksPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Tester.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -142,7 +158,9 @@
   <ItemGroup>
     <Content Include="Assets\add.png" />
     <Content Include="Assets\folder.png" />
+    <Content Include="Assets\minus.png" />
     <Content Include="Assets\pencil.png" />
+    <Content Include="Assets\settings.png" />
     <Content Include="Assets\task.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -158,13 +176,33 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="FolderPage.xaml">
+    <Page Include="AddFolderPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddTaskPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChosenFolderPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChosenTaskPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TasksPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

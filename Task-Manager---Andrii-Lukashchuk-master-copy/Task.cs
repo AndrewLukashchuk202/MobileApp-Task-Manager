@@ -16,12 +16,10 @@ namespace Task_Manager___Andrii_Lukashchuk
 
         private DateTime _taskDue;
 
-        public Guid taskGuid { get; }
+        public Guid taskGuid { get; set; }
         public string taskDescription { get; set; }
         public string taskNotes { get; set; }
         public bool taskCompleted { get; set; }
-
-        DataModelV2 sqlModel = new DataModelV2();
 
         public DateTime taskDue
         {
@@ -49,20 +47,39 @@ namespace Task_Manager___Andrii_Lukashchuk
 
         public static int taskCounter = 0;
 
+        public Guid? folderGuid { get; set; }
+
         // Constructor
-        public Task(string taskDescription, string taskNotes, bool taskCompleted, DateTime taskDue)
+        public Task(string taskDescription, string taskNotes, bool taskCompleted, DateTime taskDue, Guid? folderGuid)
         {
             this.taskGuid = Guid.NewGuid();
             this.taskDescription = taskDescription;
             this.taskNotes = taskNotes;
             this.taskCompleted = taskCompleted;
             this._taskDue = taskDue;
+            this.folderGuid = folderGuid;
 
             // Adding the task to the list of tasks upon creation
             listOfTasks.Add(this);
             taskCounter++;
 
-            sqlModel.AddTask(this);
+            DataModelV2.AddTask(this);
+        }
+
+        //Constructor for passing values from sql database
+        //in this constructor we can pass taskGuid so we don't create a new one which will cause an error in database
+        public Task(Guid taskGuid,string taskDescription, string taskNotes, bool taskCompleted, DateTime taskDue, Guid? folderGuid)
+        {
+            this.taskGuid= taskGuid;
+            this.taskDescription= taskDescription;
+            this.taskNotes = taskNotes;
+            this.taskCompleted = taskCompleted;
+            this._taskDue = taskDue;
+            this.folderGuid = folderGuid;
+
+            listOfTasks.Add(this);
+            taskCounter++;
+            DataModelV2.AddTask(this);
         }
 
         // Constructor
@@ -77,7 +94,7 @@ namespace Task_Manager___Andrii_Lukashchuk
             listOfTasks.Add(this);
             taskCounter++;
 
-            sqlModel.AddTask(this);
+            DataModelV2.AddTask(this);
         }
 
         /// <summary>
@@ -501,7 +518,7 @@ namespace Task_Manager___Andrii_Lukashchuk
             // Will sort list automatically everytime we add a new task to it
             listOfTasks.Sort();
 
-            sqlModel.AddTask(this);
+            DataModelV2.AddTask(this);
         }
 
         // Method to remove a task
@@ -512,7 +529,7 @@ namespace Task_Manager___Andrii_Lukashchuk
             // Will sort list automatically everytime we remove the task from it
             listOfTasks.Sort();
 
-            sqlModel.DeleteTask(this);
+            DataModelV2.DeleteTask(this);
         }
 
         // Method to compare two due dates of two different tasks
